@@ -1,0 +1,24 @@
+FROM ruby:2.6
+
+# https://stackoverflow.com/questions/59402528/docker-not-installing-yarn
+# to get the latest version of yarn, nodejs
+
+RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
+  apt-transport-https
+
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
+  nodejs \
+  yarn
+
+COPY Gemfile* /usr/src/app/
+WORKDIR /usr/src/app/
+RUN bundle install
+
+COPY . /usr/src/app/
+CMD ["bin/rails", "s", "-p", "3090", "-b", "0.0.0.0"]
