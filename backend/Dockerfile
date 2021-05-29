@@ -21,4 +21,4 @@ WORKDIR /usr/src/app/
 RUN bundle install
 
 COPY . /usr/src/app/
-CMD ["bin/rails", "s", "-p", "3090", "-b", "0.0.0.0"]
+CMD ["rails", "s", "-p", "3090", "-b", "0.0.0.0"]

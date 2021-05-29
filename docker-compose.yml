@@ -27,10 +27,14 @@ services:
       CHOKIDAR_USEPOLLING: "true"
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend:/usr/src/app
     depends_on: 
       - railsapi
+    volumes:
+      - ./frontend:/usr/src/app
+    # https://stackoverflow.com/questions/51097652/install-node-modules-inside-docker-container-and-synchronize-them-with-host
+    # Always use docker-compose up --build whenever there is a change
+    # After git pull, if docker is running, stop docker and up it again with same command
+    command: /usr/src/app/entrypoint.sh
 
 volumes:
   db_data:
