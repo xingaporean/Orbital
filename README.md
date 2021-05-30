@@ -5,8 +5,9 @@
 2. go google the instructions on how to allow docker to interact with wsl2
 3. clone this repo
 4. cd to root of project
-5. `docker-compose up -d --build `
-6. go to localhost:3000, you should see a "[]".
+5. go read the bugs section first before you run the below commands
+6. `docker-compose up -d --build `
+7. go to localhost:3000, you should see a "[]".
 
 ## Bugs for setup which i am figuring out how to fix
 1. some error relating to "entrypoint.sh"
