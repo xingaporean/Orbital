@@ -1,6 +1,6 @@
 # Orbital
 
-## How to setup (for win (you have wsl2) or mac, use linux at your own risk i don't support)
+## How to setup (for win (you have wsl2) or mac, use linux at your own risk i have no idea if there are linux specific bugs)
 1. download docker desktop
 2. go google the instructions on how to allow docker to interact with wsl2
 3. clone this repo
