@@ -18,7 +18,7 @@
    - `chmod +x entrypoint.sh`
 2. some error regarding user/grou permissions
    - this is because docker image doesn't know the permission of the host machine, so everytime you build a new container with docker compose the permissions are the same as what is in the container, which is root. so when it gets copied over in the volume directive, there is permission error.
-   - Solution is to recursively chown every single file in ur local machine
+   - Solution is to recursively chown every single file in ur local machine orbital folder (or u can do it in the backend folder only)
    - `ls -la`
    - `sudo chown user:user -R .` 
    - Do this in the root directory, replace user with your local machine's user id, go google how to do this.
