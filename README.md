@@ -1,11 +1,12 @@
 # Orbital
 
-## How to setup (for win or mac)
+## How to setup (for win (you have wsl2) or mac)
 1. download docker desktop
-2. clone this repo
-3. cd to root of project
-4. `docker-compose up -d --build `
-5. go to localhost:3000, you should see a "[]".
+2. go google the instructions on how to allow docker to interact with wsl2
+3. clone this repo
+4. cd to root of project
+5. `docker-compose up -d --build `
+6. go to localhost:3000, you should see a "[]".
 
 ## Bugs for setup which i am figuring out how to fix
 1. some error relating to "entrypoint.sh"
