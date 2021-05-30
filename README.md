@@ -6,12 +6,12 @@
 3. clone this repo
 4. cd to root of project
 5. go read the bugs section first before you run the below commands
-6. `docker-compose up -d --build `
+6. `docker-compose up --build `
 7. go to localhost:3000, you should see a "[]".
 
 ## Bugs for setup which i am figuring out how to fix
 0. ***DON'T DO ANY OF THE BELOW WHILE DOCKER IS RUNNING***
-1. some error relating to "entrypoint.sh"
+1. some error relating to "entrypoint.sh" (error 126)
    - this is because the entrypoint.sh file in frontend does not have execute permission due to it being created without it and being copied over to docker image
    - Solution 
    - `cd frontend`
