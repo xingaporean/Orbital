@@ -12,7 +12,7 @@
 ## Bugs for setup which i am figuring out how to fix
 0. ***DON'T DO ANY OF THE BELOW WHILE DOCKER IS RUNNING***
 1. some error relating to "entrypoint.sh"
-   - this is because the entrypoint.sh file in frontend does not have write permission due to it being created without it and being copied over to docker image
+   - this is because the entrypoint.sh file in frontend does not have execute permission due to it being created without it and being copied over to docker image
    - Solution 
    - `cd frontend`
    - `chmod +x entrypoint.sh`
