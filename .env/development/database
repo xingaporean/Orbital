@@ -1,3 +1,3 @@
-POSTGRES_USER: postgres
-POSTGRES_PASSWORD: 1234
-POSTGRES_DB: railsapi_development   
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=1234
+POSTGRES_DB=railsapi_development   

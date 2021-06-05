@@ -1,28 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-const apiURL = 'http://localhost:8000'
+import React from 'react';
+import { CssBaseline } from '@material-ui/core'
 
-interface userWrapper {
-  item: { id: number, name: string, email: string, created_at: string, updated_at: string }[]
-}
+import JobIndex from './components/JobIndex'
 
 const App: React.FC = () => {
-  const [user,setUsers] = useState<userWrapper | undefined>(undefined);
-
-  const getUsers = () => {
-    axios.get(apiURL + "/api/v1/users").then(response => {
-      setUsers(response.data);
-    }).catch(error => console.log(error))
-  }
-
-  useEffect(() => {
-    getUsers();
-  }, [])
 
   return (
-    <div>
-      {JSON.stringify(user) }
-    </div>
+    <CssBaseline> 
+        <JobIndex />
+    </CssBaseline>
   );
 }
 
