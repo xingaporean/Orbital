@@ -27,3 +27,4 @@
 ## Bugs during development
 1. Apparently if you do `yarn install whatever` on the frontend container when installing packages, dependencies etc, it will break docker daemon, which breaks the typescript auto recompile. The solution is to restart your whole docker app after stopping your docker network.
 2. `/usr/local/bin/docker-entrypoint.sh: 8: exec: /usr/src/app/entrypoint.sh: not found` error 127 during docker compose. Error occurs when docker is copying the file to the image. Something to do with CLRF and LF. Fix is to copy contents of `entrypoint.sh`, delete old file and make a new `entrypoint.sh`. 
+3. hot-reload not working with docker compose volumes after awhile, you have to `docker compose down` and `docker compose up` again to reflect changes.
