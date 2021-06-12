@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2021_06_12_063939) do
     t.datetime "updated_at", precision: 6, null: false
     t.date "start_date"
     t.date "end_date"
+    t.string "location", null: false
   end
 
   create_table "users", force: :cascade do |t|
