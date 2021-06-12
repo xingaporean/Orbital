@@ -12,6 +12,7 @@ import TempPage from './components/TempPage'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import JobIndex from './components/JobIndex'
+import JobView from './components/JobView'
 import CreateJob from './components/CreateJob';
 
 

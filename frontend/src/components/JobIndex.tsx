@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import {Typography, Card, Grid, CardContent, CardActionArea, TextField, Button, InputAdornment, CardMedia} from '@material-ui/core'
 import SearchIcon from "@material-ui/icons/Search"
 
 const apiURL = 'http://localhost:8000'
 
-interface jobWrapper {
+interface JobWrapper {
     id: number, identifier: string, poster: string, location: string,
             description: string, start_date: string, end_date: string, 
             approved: boolean, created_at: string, updated_at: string          
 }
 
 export default function JobIndex() {
-    const [jobs, setJobs] = useState<Array<jobWrapper>>([])
+    const [jobs, setJobs] = useState<Array<JobWrapper>>([])
 
     function update() {
         axios.get(apiURL + "/api/v1/jobs")
@@ -34,7 +35,7 @@ export default function JobIndex() {
                 key={job.id} 
             >
                 <Card>
-                    <CardActionArea>
+                    <CardActionArea disableRipple component={Link} to={`/${job.id}`} style={{ textDecoration: 'none'}}>
                         <CardMedia
                             component="img"
                             src="https://nus.edu.sg/images/default-source/logo/white-1200x630.jpg"

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { TextField, Button, Table, TableContainer, TableRow, TableBody, TableCell, Paper, Grid } from '@material-ui/core'
+import { TextField, Button, Table, TableContainer, TableRow, TableBody, TableCell, Paper} from '@material-ui/core'
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -146,10 +146,15 @@ export default function CreateJob() {
                                 </TableCell>
                             </TableRow>
                             </MuiPickersUtilsProvider>
+                            <TableRow>
+                                <TableCell align="right">
+                                    <Button type="submit">Submit</Button>
+                                </TableCell>
+                            </TableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Button type="submit">Submit</Button>
+                
             </form>
         </div>
     )
