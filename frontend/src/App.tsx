@@ -11,6 +11,8 @@ import SignupPage from './components/SignupPage'
 import TempPage from './components/TempPage'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import JobIndex from './components/JobIndex'
+import CreateJob from './components/CreateJob';
 
 
 const apiURL = 'http://localhost:8000'
@@ -31,7 +33,6 @@ interface userWrapper {
  logged_in: boolean, 
  user: any
 }
-
 
 const App: React.FC = () => {
   const [test,setTests] = useState<testWrapper | undefined>(undefined);

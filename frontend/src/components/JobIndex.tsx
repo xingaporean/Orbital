@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import {Typography, Card, Grid, CardHeader, CardContent, CardActionArea, TextField, Button, InputAdornment} from '@material-ui/core'
+import {Typography, Card, Grid, CardContent, CardActionArea, TextField, Button, InputAdornment, CardMedia} from '@material-ui/core'
 import SearchIcon from "@material-ui/icons/Search"
 
 const apiURL = 'http://localhost:8000'
 
 interface jobWrapper {
-    id: number, identifier: string, poster: string, 
-            description: string, date: string, duration: number, 
-            approved: boolean, created_at: string, updated_at: string       
-    
+    id: number, identifier: string, poster: string, location: string,
+            description: string, start_date: string, end_date: string, 
+            approved: boolean, created_at: string, updated_at: string          
 }
 
 export default function JobIndex() {
@@ -25,16 +24,28 @@ export default function JobIndex() {
 
     const posts = jobs.map((job) => {
         return (
-            <Grid item xs={4}>
+            <Grid 
+                xs={6}
+                item 
+                style = {{
+                    minWidth: "300px",
+                    maxWidth: "450px"
+                }}
+                key={job.id} 
+            >
                 <Card>
                     <CardActionArea>
-                    <CardHeader title={job.identifier}/>
-                    <CardContent> 
-                        <Typography>Description: {job.description}</Typography>
-                        <Typography>Posted by: {job.poster}</Typography> 
-                        <Typography>Date: {job.date}</Typography> 
-                        <Typography>Duration: {job.duration}</Typography> 
-                    </CardContent>
+                        <CardMedia
+                            component="img"
+                            src="https://nus.edu.sg/images/default-source/logo/white-1200x630.jpg"
+                            title={job.identifier}
+                        />
+                        <CardContent> 
+                            <Typography>{job.identifier}</Typography> 
+                            <Typography>Posted by: {job.poster}</Typography> 
+                            <Typography>Start: {job.start_date}</Typography> 
+                            <Typography>Location: {job.location}</Typography> 
+                        </CardContent>
                     </CardActionArea>
                 </Card>
             </Grid>
@@ -43,9 +54,15 @@ export default function JobIndex() {
     
     return (
         <div>
-            <Typography variant="h4">Jobs</Typography>
-            <Grid container justify='center'>
-            <Grid item xs={6}>
+            <Grid container justify='center' spacing={8} >
+            <Grid 
+                item 
+                xs={12} 
+                style = {{
+                    minWidth: "500px",
+                    maxWidth: "1000px"
+                }} 
+            >
                 <Card>
                     <CardContent>
                         <TextField 
@@ -64,7 +81,11 @@ export default function JobIndex() {
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid container spacing={2} justify='center'>
+            <Grid 
+                container 
+                spacing={2} 
+                justify="center"
+            >
                 {posts}
             </Grid>
             </Grid>
