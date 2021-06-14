@@ -24,13 +24,15 @@ services:
   frontend:
     build: ./frontend
     environment: 
-      CHOKIDAR_USEPOLLING: "true"
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=10000
     ports:
       - "3000:3000"
     depends_on: 
       - railsapi
     volumes:
       - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
     # https://stackoverflow.com/questions/51097652/install-node-modules-inside-docker-container-and-synchronize-them-with-host
     # Always use docker-compose up --build whenever there is a change
     # After git pull, if docker is running, stop docker and up it again with same command

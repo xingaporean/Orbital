@@ -1,28 +1,107 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import LoginPage from './components/LoginPage';
+import NavBar from './components/NavBar'
+import SignupPage from './components/SignupPage'
+import TempPage from './components/TempPage'
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+
+
 const apiURL = 'http://localhost:8000'
 
-interface userWrapper {
-  item: { id: number, name: string, email: string, created_at: string, updated_at: string }[]
+const theme = createMuiTheme({
+  palette: {
+    background: {
+      default: "#F3F2EF"
+    }
+  }
+})
+
+interface testWrapper {
+  item: { id: number, email: string, created_at: string, updated_at: string, password_digest: string }[]
 }
 
-const App: React.FC = () => {
-  const [user,setUsers] = useState<userWrapper | undefined>(undefined);
+interface userWrapper {
+ logged_in: boolean, 
+ user: any
+}
 
-  const getUsers = () => {
+
+const App: React.FC = () => {
+  const [test,setTests] = useState<testWrapper | undefined>(undefined);
+  // bug with default user, when i change page it will default back to this default, the child change does not persist for some
+  // reason. Error is because i did not use loginstatus in use effect
+
+  // current bug unauthenticated in notauthenticated is shown even when logged in is true is due to the default state
+  const [user, setUsers] = useState<userWrapper>({logged_in: false, user: {} });
+
+  const getTests = () => {
     axios.get(apiURL + "/api/v1/users").then(response => {
-      setUsers(response.data);
+      setTests(response.data);
+    }).catch(error => console.log(error))
+  }
+
+  const handleLogin = (data: userWrapper )=> {
+    setUsers(data)
+  }
+
+  const handleLogout = () => {
+    setUsers({logged_in: false, user: {} })
+  }
+
+  const getLoginStatus = () => {
+    axios.get(apiURL + "/api/v1/logged_in",{
+      withCredentials: true
+    })
+    .then(response => {
+      if (response.data.logged_in) {
+        handleLogin({logged_in: true, user: response.data.user})
+      } else {
+        handleLogout()
+      }
     }).catch(error => console.log(error))
   }
 
   useEffect(() => {
-    getUsers();
+    getTests();
+    getLoginStatus()
   }, [])
 
   return (
-    <div>
-      {JSON.stringify(user) }
-    </div>
+    <Router>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <NavBar user={user} handleLogout={handleLogout}/>
+        <Switch>
+          { user.logged_in ?
+          <Route exact path="/authenticated"> 
+            <TempPage name={'authenticated'} user={user} />
+          </Route>
+          : 
+          <Route exact path="/notauthenticated">
+            <TempPage name={'unauthenticafdsfdsfsdted'} user={user}/>
+          </Route>
+          }
+          <Route exact path="/users/login">
+            <LoginPage handleLogin={handleLogin} handleLogout={handleLogout} />
+          </Route>
+          <Route exact path="/studentsignup" component={SignupPage} />
+          <Route exact path="/signup" component={SignupPage} />
+          <Route exact path="/">
+            <div>
+              {JSON.stringify(test) }
+            </div>
+          </Route>
+        </Switch>
+      </MuiThemeProvider>
+    </Router>
   );
 }
 
