@@ -1,6 +1,11 @@
 class Api::V1::UsersController < ApplicationController
   def index
-    render json: User.all
+    user = User.all
+    if user
+      render json: User.all
+    else
+      render json: user.errors, status: :not_found
+    end
   end
 
   def show
@@ -33,6 +38,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:email,:password)
   end
 end

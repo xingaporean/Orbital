@@ -8,4 +8,4 @@
 
 users = ['bob', 'alice']
 
-users.each{|user| User.create(name: user, email: "test123@gmail.com")}
+users.each{|user| User.create(email: "test123@gmail.com")}
