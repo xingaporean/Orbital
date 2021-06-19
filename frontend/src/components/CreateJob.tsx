@@ -68,6 +68,9 @@ export default function CreateJob() {
                                     value={identifier} 
                                     fullWidth={true}
                                     onChange={handleIdentifierChange}
+                                    inputProps={{
+                                        maxLength: 70,
+                                    }}
                                 />
                                 </TableCell>
                             </TableRow>
@@ -93,6 +96,9 @@ export default function CreateJob() {
                                     value={location} 
                                     fullWidth={true}
                                     onChange={handleLocationChange}
+                                    inputProps={{
+                                      maxLength: 70,
+                                  }}
                                 />
                                 </TableCell>
                             </TableRow>
@@ -107,6 +113,9 @@ export default function CreateJob() {
                                     value={description} 
                                     fullWidth={true}
                                     onChange={handleDescriptionChange}
+                                    inputProps={{
+                                      maxLength: 2000,
+                                  }}
                                 />
                                 </TableCell>
                             </TableRow>

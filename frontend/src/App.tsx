@@ -95,11 +95,10 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/studentsignup" component={SignupPage} />
           <Route exact path="/signup" component={SignupPage} />
-          <Route exact path="/">
-            <div>
-              {JSON.stringify(test) }
-            </div>
-          </Route>
+          <Route exact path="/" component={JobIndex}/>
+          <Route exact path="/jobs" component={JobIndex}/>
+          <Route exact path="/jobs/new" component={CreateJob}/>
+          <Route exact path="/jobs/:id" component={JobView}/>
         </Switch>
       </MuiThemeProvider>
     </Router>
