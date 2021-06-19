@@ -13,14 +13,14 @@ interface Props extends RouteComponentProps<MatchParams> {
 }
 
 interface JobWrapper {
-    id: number, identifier: string, poster: string, location: string,
+    id: number, identifier: string, organisation_name: string, location: string,
             description: string, start_date: string, end_date: string, 
             approved: boolean, created_at: string, updated_at: string          
 }
 
 export default function JobView(props: Props) {
     const [loaded, setLoaded] = useState(false)
-    const [job, setJob] = useState<JobWrapper>({ id: 0, identifier: "", poster: "", location: "",
+    const [job, setJob] = useState<JobWrapper>({ id: 0, identifier: "", organisation_name: "", location: "",
                                                 description: "", start_date: "", end_date: "", 
                                                 approved: false, created_at: "", updated_at: "" })
     
@@ -48,7 +48,7 @@ export default function JobView(props: Props) {
                             </TableRow>
                             <TableRow>
                                 <TableCell>
-                                <Typography>{job.poster}</Typography>
+                                <Typography>{job.organisation_name}</Typography>
                                 </TableCell>
                             </TableRow>
                             <TableRow>

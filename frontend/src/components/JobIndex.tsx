@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import {Typography, Card, Grid, CardContent, CardActionArea, TextField, Button, InputAdornment, CardMedia, Box, Theme, makeStyles} from '@material-ui/core'
+import {Typography, Card, Grid, CardContent, CardActionArea, TextField, Button, InputAdornment, CardMedia, Theme, makeStyles} from '@material-ui/core'
 import SearchIcon from "@material-ui/icons/Search"
 
 const apiURL = 'http://localhost:8000'
 
 interface JobWrapper {
-    id: number, identifier: string, poster: string, location: string,
+    id: number, identifier: string, organisation_name: string, location: string,
             description: string, start_date: string, end_date: string, 
             approved: boolean, created_at: string, updated_at: string          
 }
@@ -27,15 +27,22 @@ export default function JobIndex() {
 
     const useStyles = makeStyles((theme: Theme) => ({
       item: {
-        minWidth: "300px",
-        maxWidth: "450px"
+        minWidth: "400px",
+        maxWidth: "450px",
+      },
+      card: {
+        height: "350px"
+      },
+      content: {
+        overflow: "hidden",
+        textOverflow: "ellipsis"
       },
       searchbar: {
         minWidth: "500px",
         maxWidth: "1000px"
       },
       image: {
-        height: 200
+        height: "210px"
       },
       actionArea: {
         textDecoration: 'none'
@@ -46,37 +53,36 @@ export default function JobIndex() {
 
     const posts = jobs.map((job) => {
         return (
-          <Box
-              m="auto"
-              height={400}
+          <Grid
+              xs={6}
+              item 
               key={job.id} 
               className={classes.item}
           >
-                <Card>
+                <Card className={classes.card}>
                     <CardActionArea disableRipple component={Link} to={`/jobs/${job.id}`} className={classes.actionArea}>
                         <CardMedia
-                            component="img"
-                            src="https://nus.edu.sg/images/default-source/logo/white-1200x630.jpg"
                             title={job.identifier}
-                            className={classes.image}
-                        />
-                        <CardContent> 
-                            <Box component={Typography} textOverflow="ellipsis">
+                        >
+                        <img src="https://nus.edu.sg/images/default-source/logo/white-1200x630.jpg" className={classes.image} alt={job.identifier}/>
+                        </CardMedia>
+                        <CardContent className={classes.content}> 
+                            <Typography noWrap>
                               {job.identifier}
-                            </Box>
-                            <Box component={Typography} textOverflow="ellipsis">
-                              Posted by: {job.poster}
-                            </Box>
-                            <Box component={Typography} textOverflow="ellipsis">
+                            </Typography>
+                            <Typography noWrap>
+                              Posted by: {job.organisation_name}
+                            </Typography>
+                            <Typography noWrap>
                               Start: {job.start_date}
-                            </Box>
-                            <Box component={Typography} textOverflow="ellipsis">
+                            </Typography>
+                            <Typography noWrap>
                               Location: {job.location} 
-                            </Box>
+                            </Typography>
                         </CardContent>
                     </CardActionArea>
                 </Card>
-            </Box>
+            </Grid>
         )
     })
     

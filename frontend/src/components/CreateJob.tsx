@@ -10,7 +10,9 @@ import {
 const apiURL = 'http://localhost:8000'
 
 export default function CreateJob() {
+    
     const [identifier, setIdentifier] = useState<String>("")
+    const [name, setName] = useState<String>("")
     const [location, setLocation] = useState<String>("")
     const [description, setDescription] = useState<String>("")
     const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(
@@ -22,6 +24,9 @@ export default function CreateJob() {
 
     const handleIdentifierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setIdentifier(e.target.value)
+    }
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value)
     }
     const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLocation(e.target.value)
@@ -41,7 +46,7 @@ export default function CreateJob() {
         e.preventDefault()
         axios.post(apiURL + '/api/v1/jobs', {
             identifier: identifier,
-            poster: "User",
+            organisation_name: name,
             location: location,
             description: description,
             start_date: selectedStartDate,
@@ -54,7 +59,7 @@ export default function CreateJob() {
     
     return (
         <div>
-            <form onSubmit={handleSubmit} noValidate={true}>
+            <form onSubmit={handleSubmit}>
                 <TableContainer component={Paper}>
                     <Table>
                         <TableBody>
@@ -63,26 +68,24 @@ export default function CreateJob() {
                                 <TextField 
                                     required 
                                     id="job-identifier" 
-                                    label="Name" 
+                                    label="Name of Event" 
                                     variant="outlined" 
                                     value={identifier} 
                                     fullWidth={true}
                                     onChange={handleIdentifierChange}
-                                    inputProps={{
-                                        maxLength: 70,
-                                    }}
                                 />
                                 </TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>
                                 <TextField 
-                                    disabled 
-                                    id="job-poster" 
-                                    label="Organization" 
-                                    defaultValue="User" 
+                                    required 
+                                    id="job-name" 
+                                    label="Name of Organisation" 
+                                    variant="outlined" 
+                                    value={name} 
                                     fullWidth={true}
-                                    variant="outlined"
+                                    onChange={handleNameChange}
                                 />
                                 </TableCell>
                             </TableRow>
@@ -96,9 +99,6 @@ export default function CreateJob() {
                                     value={location} 
                                     fullWidth={true}
                                     onChange={handleLocationChange}
-                                    inputProps={{
-                                      maxLength: 70,
-                                  }}
                                 />
                                 </TableCell>
                             </TableRow>
@@ -113,9 +113,6 @@ export default function CreateJob() {
                                     value={description} 
                                     fullWidth={true}
                                     onChange={handleDescriptionChange}
-                                    inputProps={{
-                                      maxLength: 2000,
-                                  }}
                                 />
                                 </TableCell>
                             </TableRow>
@@ -163,7 +160,6 @@ export default function CreateJob() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                
             </form>
         </div>
     )
