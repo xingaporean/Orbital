@@ -23,8 +23,10 @@ ActiveRecord::Schema.define(version: 2021_05_31_163656) do
     t.date "start_date", null: false
     t.date "end_date", null: false
     t.boolean "approved", default: false, null: false
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_jobs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

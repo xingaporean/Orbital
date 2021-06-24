@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import { useHistory } from "react-router-dom";
 import axios from 'axios'
-import { TextField, Button, Table, TableContainer, TableRow, TableBody, TableCell, Paper} from '@material-ui/core'
+import { TextField, Button, Table, TableRow, TableBody, TableCell, Container, Grid, Typography, Paper} from '@material-ui/core'
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -10,6 +11,8 @@ import {
 const apiURL = 'http://localhost:8000'
 
 export default function CreateJob() {
+
+    let history = useHistory();
     
     const [identifier, setIdentifier] = useState<String>("")
     const [name, setName] = useState<String>("")
@@ -52,115 +55,137 @@ export default function CreateJob() {
             start_date: selectedStartDate,
             end_date: selectedEndDate
         })
-        .then(resp => console.log(resp))
+        .then(resp => {
+          console.log(resp)
+          history.goBack();
+        })
         .catch(resp => console.log(resp))
     }
 
     
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <TableContainer component={Paper}>
-                    <Table>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell>
-                                <TextField 
-                                    required 
-                                    id="job-identifier" 
-                                    label="Name of Event" 
-                                    variant="outlined" 
-                                    value={identifier} 
-                                    fullWidth={true}
-                                    onChange={handleIdentifierChange}
-                                />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                <TextField 
-                                    required 
-                                    id="job-name" 
-                                    label="Name of Organisation" 
-                                    variant="outlined" 
-                                    value={name} 
-                                    fullWidth={true}
-                                    onChange={handleNameChange}
-                                />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                <TextField 
-                                    required 
-                                    id="job-location" 
-                                    label="Location" 
-                                    variant="outlined"
-                                    value={location} 
-                                    fullWidth={true}
-                                    onChange={handleLocationChange}
-                                />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                <TextField 
-                                    required 
-                                    id="job-description" 
-                                    label="Description" 
-                                    multiline rows={10} 
-                                    variant="outlined"
-                                    value={description} 
-                                    fullWidth={true}
-                                    onChange={handleDescriptionChange}
-                                />
-                                </TableCell>
-                            </TableRow>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <TableRow>
-                                <TableCell>
-                                <KeyboardDatePicker 
-                                    disableToolbar
-                                    variant="inline"
-                                    format="MM/dd/yyyy"
-                                    margin="normal"
-                                    id="job-start-date"
-                                    label="Start Date"
-                                    value={selectedStartDate}
-                                    onChange={handleStartDateChange}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }} 
-                                />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                <KeyboardDatePicker 
-                                    disableToolbar
-                                    variant="inline"
-                                    format="MM/dd/yyyy"
-                                    margin="normal"
-                                    id="job-end-date"
-                                    label="End Date"
-                                    value={selectedEndDate}
-                                    onChange={handleEndDateChange}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }} 
-                                />
-                                </TableCell>
-                            </TableRow>
-                            </MuiPickersUtilsProvider>
-                            <TableRow>
-                                <TableCell align="right">
-                                    <Button type="submit">Submit</Button>
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </form>
-        </div>
+        <Container maxWidth="sm">
+          <Grid container>
+            <Grid item xs={12}>
+              <Paper elevation={1}>
+                <form onSubmit={handleSubmit}>
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell width="30%" variant="head">
+                          <Typography>Name of Event:</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <TextField 
+                            required          
+                            id="job-identifier" 
+                            variant="outlined" 
+                            value={identifier}  
+                            fullWidth={true}
+                            onChange={handleIdentifierChange}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell width="30%" variant="head">
+                          <Typography>Name of Organisation:</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <TextField 
+                            required 
+                            id="job-name" 
+                            variant="outlined" 
+                            value={name} 
+                            fullWidth={true}
+                            onChange={handleNameChange}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell width="30%" variant="head">
+                          <Typography>Location:</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <TextField 
+                            required 
+                            id="job-location" 
+                            variant="outlined"
+                            value={location} 
+                            fullWidth={true}
+                            onChange={handleLocationChange}
+                            />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                      <TableCell width="30%" variant="head">
+                          <Typography>Description:</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <TextField 
+                            required 
+                            id="job-description" 
+                            multiline 
+                            rowsMax={10} 
+                            variant="outlined"
+                            value={description} 
+                            fullWidth={true}
+                            onChange={handleDescriptionChange}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <TableRow>
+                        <TableCell width="30%" variant="head">
+                          <Typography>Start Date:</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <KeyboardDatePicker 
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="job-start-date"
+                            value={selectedStartDate}
+                            onChange={handleStartDateChange}
+                            KeyboardButtonProps={{
+                              'aria-label': 'change date',
+                            }} 
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell width="30%" variant="head">
+                          <Typography>End Date:</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <KeyboardDatePicker 
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="job-end-date"
+                            label="End Date"
+                            value={selectedEndDate}
+                            onChange={handleEndDateChange}
+                            KeyboardButtonProps={{
+                              'aria-label': 'change date',
+                            }} 
+                          />
+                        </TableCell>
+                      </TableRow>
+                      </MuiPickersUtilsProvider>
+                      <TableRow>
+                        <TableCell width="30%" />
+                        <TableCell align="right">
+                          <Button type="submit">Submit</Button>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </form>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
     )
 }

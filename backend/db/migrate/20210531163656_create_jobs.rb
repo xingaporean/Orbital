@@ -8,6 +8,7 @@ class CreateJobs < ActiveRecord::Migration[6.1]
       t.date :start_date, null: false
       t.date :end_date, null: false
       t.boolean :approved, default: false, null: false
+      t.belongs_to :user
       t.timestamps
     end
   end
