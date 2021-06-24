@@ -6,6 +6,34 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-users = ['bob', 'alice']
+jobs = ["Job_1", "Job_2", "Job_3"]
 
-users.each{|user| User.create(name: user, email: "test123@gmail.com")}
+a = User.create(:email => 'UserA' + "@gmail.com", 
+                :password_digest => "123", 
+                :is_admin => false)
+
+b = User.create(:email => 'UserB' + "@gmail.com", 
+                :password_digest => "123", 
+                :is_admin => false)
+
+jobs.each{|job| Job.create(:identifier => job + "A",
+                            :organisation_name => "Org A",
+                            :description => "Test 123",
+                            :location => "Test Location",
+                            :start_date => Date.current,
+                            :end_date => Date.current + 1.week,
+                            :approved => false,
+                            :created_at => DateTime.now,
+                            :updated_at => DateTime.now,
+                            :user_id => a.id)}
+
+jobs.each{|job| Job.create(:identifier => job + "B",
+                            :organisation_name => "Org B",
+                            :description => "Test 123",
+                            :location => "Test Location",
+                            :start_date => Date.current,
+                            :end_date => Date.current + 1.week,
+                            :approved => false,
+                            :created_at => DateTime.now,
+                            :updated_at => DateTime.now,
+                            :user_id => b.id)}

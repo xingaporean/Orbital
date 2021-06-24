@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import {Typography, Card, Grid, CardContent, CardActionArea, TextField, Button, InputAdornment, CardMedia} from '@material-ui/core'
+import {Typography, Card, Grid, CardContent, CardActionArea, TextField, Button, InputAdornment, CardMedia, Theme, makeStyles} from '@material-ui/core'
 import SearchIcon from "@material-ui/icons/Search"
 
 const apiURL = 'http://localhost:8000'
 
 interface JobWrapper {
-    id: number, identifier: string, poster: string, location: string,
+    id: number, identifier: string, organisation_name: string, location: string,
             description: string, start_date: string, end_date: string, 
             approved: boolean, created_at: string, updated_at: string          
 }
+
+
 
 export default function JobIndex() {
     const [jobs, setJobs] = useState<Array<JobWrapper>>([])
@@ -23,29 +25,60 @@ export default function JobIndex() {
 
     useEffect(update, [])
 
+    const useStyles = makeStyles((theme: Theme) => ({
+      item: {
+        minWidth: "400px",
+        maxWidth: "450px",
+      },
+      card: {
+        height: "350px"
+      },
+      content: {
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+      },
+      searchbar: {
+        minWidth: "500px",
+        maxWidth: "1000px"
+      },
+      image: {
+        height: "210px"
+      },
+      actionArea: {
+        textDecoration: 'none'
+      }
+    }));
+
+    const classes = useStyles()
+
     const posts = jobs.map((job) => {
         return (
-            <Grid 
-                xs={6}
-                item 
-                style = {{
-                    minWidth: "300px",
-                    maxWidth: "450px"
-                }}
-                key={job.id} 
-            >
-                <Card>
-                    <CardActionArea disableRipple component={Link} to={`/${job.id}`} style={{ textDecoration: 'none'}}>
+          <Grid
+              xs={6}
+              item 
+              key={job.id} 
+              className={classes.item}
+          >
+                <Card className={classes.card}>
+                    <CardActionArea disableRipple component={Link} to={`/jobs/${job.id}`} className={classes.actionArea}>
                         <CardMedia
-                            component="img"
-                            src="https://nus.edu.sg/images/default-source/logo/white-1200x630.jpg"
                             title={job.identifier}
-                        />
-                        <CardContent> 
-                            <Typography>{job.identifier}</Typography> 
-                            <Typography>Posted by: {job.poster}</Typography> 
-                            <Typography>Start: {job.start_date}</Typography> 
-                            <Typography>Location: {job.location}</Typography> 
+                        >
+                        <img src="https://nus.edu.sg/images/default-source/logo/white-1200x630.jpg" className={classes.image} alt={job.identifier}/>
+                        </CardMedia>
+                        <CardContent className={classes.content}> 
+                            <Typography noWrap>
+                              {job.identifier}
+                            </Typography>
+                            <Typography noWrap>
+                              Posted by: {job.organisation_name}
+                            </Typography>
+                            <Typography noWrap>
+                              Start: {job.start_date}
+                            </Typography>
+                            <Typography noWrap>
+                              Location: {job.location} 
+                            </Typography>
                         </CardContent>
                     </CardActionArea>
                 </Card>
@@ -55,14 +88,11 @@ export default function JobIndex() {
     
     return (
         <div>
-            <Grid container justify='center' spacing={8} >
+            <Grid container justify='center' spacing={8}>
             <Grid 
                 item 
                 xs={12} 
-                style = {{
-                    minWidth: "500px",
-                    maxWidth: "1000px"
-                }} 
+                className={classes.searchbar}
             >
                 <Card>
                     <CardContent>

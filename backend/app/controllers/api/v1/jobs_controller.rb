@@ -34,10 +34,20 @@ class Api::V1::JobsController < ApplicationController
       render json: job.errors, status: :unprocessable_entity
     end
   end
+
+  # GET /api/v1/approvedjobs
+  def approved
+    render json: Job.where(approved: true)
+  end
+
+  # GET /api/v1/notapprovedjobs
+  def notapproved
+    render json: Job.where(approved: false)
+  end
   
   private
   
   def job_params
-    params.require(:job).permit(:identifier, :poster, :description, :start_date, :end_date, :location)
+    params.require(:job).permit(:identifier, :organisation_name, :description, :start_date, :end_date, :location)
   end
 end
