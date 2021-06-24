@@ -1,5 +1,5 @@
 class Job < ApplicationRecord
-  belongs_to :user, optional: false
+  belongs_to :user, optional: true
   validates_presence_of :identifier
   validates_presence_of :organisation_name
   validates_presence_of :description
