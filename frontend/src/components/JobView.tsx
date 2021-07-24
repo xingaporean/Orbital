@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from "react-router-dom";
 import { RouteComponentProps } from 'react-router';
 import axios from 'axios'
 import { Table, TableContainer, TableRow, TableBody, TableCell, Button, Typography} from '@material-ui/core'
@@ -9,7 +10,13 @@ interface MatchParams {
     id: string;
 }
 
+interface userWrapper {
+    logged_in: boolean, 
+    user: any
+}
+
 interface Props extends RouteComponentProps<MatchParams> {
+    user: userWrapper,
 }
 
 interface JobWrapper {
@@ -24,6 +31,8 @@ export default function JobView(props: Props) {
                                                 description: "", start_date: "", end_date: "", 
                                                 approved: false, created_at: "", updated_at: "" })
     
+    let history = useHistory();
+
     function update () {
         axios.get(apiURL + '/api/v1/jobs/' + props.match.params.id)
           .then(resp => {
@@ -32,6 +41,26 @@ export default function JobView(props: Props) {
           })
           .catch(resp => console.log(resp))
       }
+
+    function approve () {
+        const job = {approved: true}
+        axios.put(apiURL + '/api/v1/jobs/' + props.match.params.id, job)
+        .then(resp => {
+            console.log(resp)
+            history.goBack()
+        })
+        .catch(resp => console.log(resp))
+    }
+
+    function destroy () {
+        axios.delete(apiURL + '/api/v1/jobs/' + props.match.params.id)
+        .then(resp => {
+          console.log(resp)
+          history.goBack()
+        })
+        .catch(resp => console.log(resp))
+    }
+    
     
     useEffect(update, [props.match.params.id])
 
@@ -71,11 +100,22 @@ export default function JobView(props: Props) {
                                 <Typography>{job.description}</Typography>
                                 </TableCell>
                             </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                <Button> Register </Button>
-                                </TableCell>
-                            </TableRow>
+                            
+
+                                <TableRow>
+                                    <TableCell>
+                                    <Button onClick={approve}> Approve Listing </Button>
+                                    </TableCell>
+                                    <TableCell>
+                                    <Button onClick={destroy}> Reject Listing </Button>
+                                    </TableCell>
+                                </TableRow> 
+                                <TableRow>
+                                    <TableCell>
+                                    <Button> Register </Button>
+                                    </TableCell>
+                                </TableRow>
+                                
                         </TableBody>
                     </Table>
                 </TableContainer>

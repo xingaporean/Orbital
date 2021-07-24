@@ -59,9 +59,16 @@ const ButtonAppBar: React.FC<props> = ({user, handleLogout}) => {
           <Button 
             color="inherit"
             component={Link}
-            to={"/signup"}
+            to={"/jobs/new"}
             >
-            NGO
+            Create Job
+          </Button>
+          <Button 
+            color="inherit"
+            component={Link}
+            to={"/admin"}
+            >
+            Admin
           </Button>
           { !user.logged_in ? 
           <Button 

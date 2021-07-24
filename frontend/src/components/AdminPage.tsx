@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import {Typography, Card, Grid, CardContent, CardActionArea, TextField, Button, InputAdornment, CardMedia, Theme, makeStyles} from '@material-ui/core'
-import SearchIcon from "@material-ui/icons/Search"
+import {Typography, Card, Grid, CardContent, CardActionArea, CardMedia, Theme, makeStyles} from '@material-ui/core'
 
 const apiURL = 'http://localhost:8000'
 
@@ -12,11 +11,13 @@ interface JobWrapper {
             approved: boolean, created_at: string, updated_at: string          
 }
 
+
+
 export default function JobIndex() {
     const [jobs, setJobs] = useState<Array<JobWrapper>>([])
 
     function update() {
-        axios.get(apiURL + "/api/v1/approvedjobs")
+        axios.get(apiURL + "/api/v1/notapprovedjobs")
             .then(resp => setJobs(resp.data))
             .catch(resp => console.log(resp))
     }
@@ -87,31 +88,6 @@ export default function JobIndex() {
     return (
         <div>
             <Grid container justify='center' spacing={2}>
-              {/*
-            <Grid 
-                item 
-                xs={12} 
-                className={classes.searchbar}
-            >
-                <Card>
-                    <CardContent>
-                        <TextField 
-                            label="Search Jobs" 
-                            fullWidth={true} 
-                            InputProps={{ 
-                                endAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment>
-                                )
-                            }} 
-                        />
-                        <Typography>Filter by:</Typography>
-                        <Button> Clear All</Button>
-                    </CardContent>
-                </Card>
-            </Grid>
-                          */}
                   {posts}
             </Grid>
         </div>

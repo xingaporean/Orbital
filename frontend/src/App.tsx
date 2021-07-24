@@ -8,6 +8,7 @@ import {
 import LoginPage from './components/LoginPage';
 import NavBar from './components/NavBar'
 import SignupPage from './components/SignupPage'
+import AdminPage from './components/AdminPage'
 import TempPage from './components/TempPage'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
@@ -95,6 +96,7 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/studentsignup" component={SignupPage} />
           <Route exact path="/signup" component={SignupPage} />
+          <Route exact path="/admin" component={AdminPage} />
           <Route exact path="/" component={JobIndex}/>
           <Route exact path="/jobs" component={JobIndex}/>
           <Route exact path="/jobs/new" component={CreateJob}/>
