@@ -4,14 +4,17 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import LoginPage from './components/LoginPage';
 import NavBar from './components/NavBar'
 import SignupPage from './components/SignupPage'
+import AdminPage from './components/AdminPage'
 import TempPage from './components/TempPage'
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import JobIndex from './components/JobIndex'
+import JobView from './components/JobView'
+import CreateJob from './components/CreateJob';
 
 
 const apiURL = 'http://localhost:8000'
@@ -32,7 +35,6 @@ interface userWrapper {
  logged_in: boolean, 
  user: any
 }
-
 
 const App: React.FC = () => {
   const [test,setTests] = useState<testWrapper | undefined>(undefined);
@@ -94,11 +96,11 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/studentsignup" component={SignupPage} />
           <Route exact path="/signup" component={SignupPage} />
-          <Route exact path="/">
-            <div>
-              {JSON.stringify(test) }
-            </div>
-          </Route>
+          <Route exact path="/admin" component={AdminPage} />
+          <Route exact path="/" component={JobIndex}/>
+          <Route exact path="/jobs" component={JobIndex}/>
+          <Route exact path="/jobs/new" component={CreateJob}/>
+          <Route exact path="/jobs/:id" component={JobView}/>
         </Switch>
       </MuiThemeProvider>
     </Router>
